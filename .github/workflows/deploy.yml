@@ -41,6 +41,9 @@ jobs:
       - name: Make zip file
         run: |
           mkdir deploy
+          cp ./appspec.yml ./deploy/
+          cp ./Dockerfile ./deploy/
+          cp ./scripts/*.sh ./deploy/
           cp ./build/libs/*.jar ./deploy/
           zip -r -qq -j ./chillin-build.zip ./deploy
 
@@ -56,3 +59,9 @@ jobs:
           aws s3 cp \
             --region ap-northeast-2 \
             ./chillin-build.zip s3://chillin-bucket
+
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name chillin-codedeploy
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --deployment-group-name chillin-deploy-group
+          --s3-location bucket=chillin-bucket,bundleType=zip,key=chillin-build.zip
