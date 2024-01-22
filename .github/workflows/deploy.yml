@@ -55,4 +55,4 @@ jobs:
         run: |
           aws s3 cp \
             --region ap-northeast-2 \
-            ./spring-build.zip s3://chillin-bucket
+            ./spring-build.zip s3://chillin-bucket/zip
