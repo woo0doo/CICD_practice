@@ -42,7 +42,7 @@ jobs:
         run: |
           mkdir deploy
           cp ./build/libs/*.jar ./deploy/
-          zip -r -qq -j ./spring-build.zip ./deploy
+          zip -r -qq -j ./chillin-build.zip ./deploy
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -55,4 +55,4 @@ jobs:
         run: |
           aws s3 cp \
             --region ap-northeast-2 \
-            ./spring-build.zip s3://chillin-spring
+            ./chillin-build.zip s3://chillin-bucket
